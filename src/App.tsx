@@ -18,6 +18,7 @@ export default function App() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [isHeaderMenuOpen, setIsHeaderMenuOpen] = useState(false);
+  const [showSaveSuccess, setShowSaveSuccess] = useState(false);
   const [isDesktopView, setIsDesktopView] = useState(false);
   const [scaleFactor, setScaleFactor] = useState(1);
 
@@ -134,8 +135,8 @@ export default function App() {
           <div 
             className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat transition-transform duration-1000 scale-100"
             style={{ 
-              backgroundImage: `url('https://ttu.tj/wp-content/uploads/2021/03/slider1.jpg')`,
-              filter: 'brightness(0.4)'
+              backgroundImage: `url('https://ttu.tj/wp-content/uploads/2021/04/IMG_20210420_111054-scaled.jpg')`,
+              filter: 'brightness(0.5)'
             }}
           />
           
@@ -144,62 +145,62 @@ export default function App() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
-            className="relative z-10 w-full max-w-md px-6 flex flex-col items-center text-center space-y-6"
+            className="relative z-10 w-full max-w-md px-8 flex flex-col items-center text-center space-y-8"
           >
             {/* Logo */}
-            <div className="w-36 h-36 relative mb-2 bg-white rounded-full p-1 shadow-2xl flex items-center justify-center border-2 border-blue-900/20">
+            <div className="w-48 h-48 relative mb-2 flex items-center justify-center">
               <img 
                 src="https://ttu.tj/wp-content/uploads/2021/04/logo-ttu-1.png" 
                 alt="TTU Logo" 
-                className="w-full h-full object-contain"
+                className="w-full h-full object-contain drop-shadow-2xl"
                 referrerPolicy="no-referrer"
               />
             </div>
 
             {/* Title */}
-            <div className="space-y-0 text-white">
-              <h1 className="text-3xl font-medium leading-tight">Системаи</h1>
-              <h1 className="text-3xl font-medium leading-tight">иттилоотии</h1>
-              <h2 className="text-3xl font-medium leading-tight mt-1">Донишгоҳи техникии</h2>
-              <h2 className="text-3xl font-medium leading-tight">Тоҷикистон ба номи</h2>
-              <h2 className="text-3xl font-medium leading-tight">академик М.С.Осимӣ</h2>
+            <div className="space-y-1 text-white">
+              <h1 className="text-4xl font-bold leading-tight tracking-wide">Системаи</h1>
+              <h1 className="text-4xl font-bold leading-tight tracking-wide">иттилоотии</h1>
+              <h2 className="text-3xl font-bold leading-tight mt-2">Донишгоҳи техникии</h2>
+              <h2 className="text-3xl font-bold leading-tight">Тоҷикистон ба номи</h2>
+              <h2 className="text-3xl font-bold leading-tight">академик М.С.Осимӣ</h2>
             </div>
 
             {/* Login Form */}
-            <div className="w-full space-y-5 mt-4">
-              <div className="flex flex-col items-start space-y-1">
-                <label className="text-gray-400 text-xs font-normal ml-1">Логин</label>
+            <div className="w-full space-y-6 mt-6">
+              <div className="flex flex-col items-start space-y-2">
+                <label className="text-white text-sm font-medium ml-1 opacity-90">Логин</label>
                 <input
                   type="text"
                   value={login}
                   onChange={(e) => setLogin(e.target.value)}
-                  className="w-full bg-[#E8F0FE] text-gray-800 px-4 py-3 rounded-t-md outline-none border-b-[3px] border-purple-600 transition-all duration-300 text-lg shadow-sm"
+                  className="w-full bg-[#E8F0FE] text-gray-900 px-4 py-4 rounded-sm outline-none border-b-[4px] border-purple-600 transition-all duration-300 text-xl shadow-lg"
                 />
               </div>
 
-              <div className="flex flex-col items-start space-y-1">
-                <label className="text-gray-400 text-xs font-normal ml-1">Парол</label>
+              <div className="flex flex-col items-start space-y-2">
+                <label className="text-white text-sm font-medium ml-1 opacity-90">Парол</label>
                 <div className="w-full relative">
                   <input
                     type={showPassword ? "text" : "password"}
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="w-full bg-[#E8F0FE] text-gray-800 px-4 py-3 rounded-t-md outline-none border-b-[3px] border-purple-600 transition-all duration-300 text-lg pr-12 shadow-sm"
+                    className="w-full bg-[#E8F0FE] text-gray-900 px-4 py-4 rounded-sm outline-none border-b-[4px] border-purple-600 transition-all duration-300 text-xl pr-14 shadow-lg"
                   />
                   <button 
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
+                    className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 transition-colors"
                   >
-                    {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                    {showPassword ? <EyeOff size={22} /> : <Eye size={22} />}
                   </button>
                 </div>
               </div>
 
               <motion.button
-                whileHover={{ scale: 1.01 }}
-                whileTap={{ scale: 0.99 }}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
                 onClick={handleLogin}
-                className="w-full mt-8 py-4 rounded-full bg-gradient-to-r from-[#00C2FF] to-[#A020F0] text-white font-medium text-lg tracking-wider shadow-xl transition-all duration-300 uppercase"
+                className="w-full mt-10 py-5 rounded-full bg-gradient-to-r from-[#33CCFF] to-[#B249F0] text-white font-bold text-xl tracking-widest shadow-2xl transition-all duration-300 uppercase"
               >
                 ДАРОМАДАН
               </motion.button>
@@ -225,6 +226,16 @@ export default function App() {
               </div>
             </div>
             <div className="flex items-center space-x-4 relative">
+              <div className="hidden sm:flex items-center space-x-2 mr-2">
+                <span className="text-gray-300 text-xs font-medium">{studentData.fullName.split(' ')[0]}</span>
+                <div className="w-8 h-8 rounded-full overflow-hidden border border-gray-600 bg-gray-700 flex items-center justify-center">
+                  {studentData.photo ? (
+                    <img src={studentData.photo} alt="User" className="w-full h-full object-cover" />
+                  ) : (
+                    <User size={16} className="text-gray-400" />
+                  )}
+                </div>
+              </div>
               <button 
                 onClick={() => setIsHeaderMenuOpen(!isHeaderMenuOpen)}
                 className="text-white hover:bg-gray-700 p-2 rounded-lg transition-colors"
@@ -431,6 +442,11 @@ export default function App() {
                         onChange={(e) => {
                           const file = e.target.files?.[0];
                           if (file) {
+                            // Check file size (limit to 2MB for localStorage)
+                            if (file.size > 2 * 1024 * 1024) {
+                              alert("Акс хеле калон аст. Лутфан аксеро интихоб кунед, ки ҳаҷмаш аз 2МБ хурдтар бошад.");
+                              return;
+                            }
                             const reader = new FileReader();
                             reader.onloadend = () => {
                               setStudentData({ ...studentData, photo: reader.result as string });
@@ -659,9 +675,24 @@ export default function App() {
                 </div>
               </div>
 
-              <div className="p-6 border-t bg-gray-50 flex justify-end">
+              <div className="p-6 border-t bg-gray-50 flex justify-end items-center gap-4">
+                {showSaveSuccess && (
+                  <motion.span 
+                    initial={{ opacity: 0, x: 10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    className="text-green-600 font-medium text-sm"
+                  >
+                    Маълумот захира шуд!
+                  </motion.span>
+                )}
                 <button 
-                  onClick={() => setIsSettingsOpen(false)}
+                  onClick={() => {
+                    setShowSaveSuccess(true);
+                    setTimeout(() => {
+                      setShowSaveSuccess(false);
+                      setIsSettingsOpen(false);
+                    }, 1500);
+                  }}
                   className="bg-purple-600 text-white px-8 py-2 rounded-lg font-bold hover:bg-purple-700 transition-colors shadow-lg"
                 >
                   Захира кардан
