@@ -107,8 +107,8 @@ export default function App() {
   return (
     <>
       <div 
-        className={isDesktopView ? "fixed inset-0 overflow-hidden bg-black" : "min-h-screen bg-[#F3F4F6] overflow-x-hidden"}
-        style={isDesktopView ? { width: '100vw', height: '100vh' } : { overscrollBehavior: 'none' }}
+        className={isDesktopView ? "fixed inset-0 overflow-auto bg-black" : "min-h-screen bg-[#F3F4F6]"}
+        style={isDesktopView ? { width: '100vw', height: '100vh' } : {}}
       >
         <div
           style={{
@@ -118,8 +118,7 @@ export default function App() {
             transformOrigin: 'top left',
             transition: 'transform 0.3s ease-out',
             overflow: isDesktopView ? 'auto' : 'visible',
-            overscrollBehavior: 'none',
-            paddingBottom: '20px' // Small padding at the very bottom
+            paddingBottom: '100px' // Increased padding at the bottom for better scrolling experience
           }}
         >
           <AnimatePresence mode="wait">
@@ -368,7 +367,7 @@ export default function App() {
             </motion.aside>
 
             {/* Main Content */}
-            <main className="flex-1 overflow-auto bg-[#F3F4F6]">
+            <main className={`flex-1 bg-[#F3F4F6] ${isDesktopView ? 'overflow-auto' : 'overflow-visible'}`}>
               {activeTab === 'lessons' && <MyLessonsView studentData={studentData} />}
 
               {activeTab === 'grades' && <GradesView />}
