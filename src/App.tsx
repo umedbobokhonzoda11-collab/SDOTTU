@@ -20,25 +20,9 @@ export default function App() {
   const [isHeaderMenuOpen, setIsHeaderMenuOpen] = useState(false);
   const [showSaveSuccess, setShowSaveSuccess] = useState(false);
   const [isDesktopView, setIsDesktopView] = useState(false);
-  const [scaleFactor, setScaleFactor] = useState(1);
 
   useEffect(() => {
-    const updateScale = () => {
-      const userScale = 0.7; // User requested 70% scale
-      if (isDesktopView) {
-        const baseTargetWidth = 1440;
-        const targetWidth = baseTargetWidth / userScale; // approx 2057px
-        const currentWidth = window.innerWidth;
-        const newScale = currentWidth / targetWidth;
-        setScaleFactor(newScale);
-      } else {
-        setScaleFactor(userScale);
-      }
-    };
-
-    updateScale();
-    window.addEventListener('resize', updateScale);
-    return () => window.removeEventListener('resize', updateScale);
+    // Standard responsive behavior
   }, [isDesktopView]);
 
   const [studentData, setStudentData] = useState(() => {
@@ -51,8 +35,8 @@ export default function App() {
       }
     }
     return {
-      fullName: 'Бобохонзода Умедҷон Ҷамолхон',
-      photo: '/profile.jpg',
+      fullName: 'Бобохонзода Орзуҷон Ҷамолхон',
+      photo: '/images/profile.jpg',
       id: '8647',
       isOrphan: 'Ятим нест',
       country: 'Тоҷикистон',
@@ -69,17 +53,40 @@ export default function App() {
       phone: '988479974',
       email: 'jamolkhon@example.com',
       gender: 'Мард',
-      birthday: '11.12.2004',
+      birthday: '11-12-2004',
       age: '21',
       passport: 'Маълумот нест',
       visits: '373',
       nationality: 'Тоҷик',
-      login: 'jamolkhon/23',
-      lastVisit: '08 Март 2026, 15:25:22'
+      login: 'jamolkhon/23'
     };
   });
 
   useEffect(() => {
+    // Migrate old data if necessary
+    let updated = false;
+    const newData = { ...studentData };
+
+    if (newData.photo === '/profile.jpg') {
+      newData.photo = '/images/profile.jpg';
+      updated = true;
+    }
+    if (newData.fullName === 'Бобохонзода Умедҷон Ҷамолхон') {
+      newData.fullName = 'Бобохонзода Орзуҷон Ҷамолхон';
+      updated = true;
+    }
+    if (newData.birthday === '11.12.2004') {
+      newData.birthday = '11-12-2004';
+      updated = true;
+    }
+    if ('lastVisit' in newData) {
+      delete newData.lastVisit;
+      updated = true;
+    }
+
+    if (updated) {
+      setStudentData(newData);
+    }
     localStorage.setItem('student_data', JSON.stringify(studentData));
   }, [studentData]);
 
@@ -106,21 +113,8 @@ export default function App() {
 
   return (
     <>
-      <div 
-        className={isDesktopView ? "fixed inset-0 overflow-auto bg-black" : "min-h-screen bg-[#F3F4F6]"}
-        style={isDesktopView ? { width: '100vw', height: '100vh' } : {}}
-      >
-        <div
-          style={{
-            width: isDesktopView ? `${1440 / 0.7}px` : `${100 / scaleFactor}%`,
-            minHeight: '100%',
-            transform: `scale(${scaleFactor})`,
-            transformOrigin: 'top left',
-            transition: 'transform 0.3s ease-out',
-            overflow: isDesktopView ? 'auto' : 'visible',
-            paddingBottom: '100px' // Increased padding at the bottom for better scrolling experience
-          }}
-        >
+      <div className="min-h-screen bg-[#F3F4F6] overflow-y-auto">
+        <div className={`min-h-screen flex flex-col ${isDesktopView ? 'max-w-[1440px] w-full mx-auto shadow-2xl' : 'w-full'}`}>
           <AnimatePresence mode="wait">
           {!isLoggedIn ? (
         <motion.div
@@ -367,7 +361,7 @@ export default function App() {
             </motion.aside>
 
             {/* Main Content */}
-            <main className={`flex-1 bg-[#F3F4F6] ${isDesktopView ? 'overflow-auto' : 'overflow-visible'}`}>
+            <main className="flex-1 bg-[#F3F4F6] overflow-auto">
               {activeTab === 'lessons' && <MyLessonsView studentData={studentData} />}
 
               {activeTab === 'grades' && <GradesView />}
@@ -379,8 +373,6 @@ export default function App() {
         </motion.div>
       )}
       </AnimatePresence>
-        </div>
-      </div>
 
       {/* Floating Settings Button - Always visible */}
       <button 
@@ -701,8 +693,10 @@ export default function App() {
           </div>
         )}
       </AnimatePresence>
-    </>
-  );
+    </div>
+  </div>
+</>
+);
 }
 
 function MyLessonsView({ studentData }: { studentData: any }) {
@@ -748,7 +742,7 @@ function MyLessonsView({ studentData }: { studentData: any }) {
       </div>
 
       {/* Table Section */}
-      <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
+      <div className="bg-white rounded-lg shadow-sm border border-gray-200">
         <div className="p-6">
           <div className="flex justify-between items-center mb-6">
             <h2 className="text-sm font-bold text-gray-600 uppercase tracking-wider">Дарсҳои ман</h2>
@@ -758,10 +752,10 @@ function MyLessonsView({ studentData }: { studentData: any }) {
             <h3 className="text-3xl font-bold text-red-600">ID-и Шумо: {studentData.id}</h3>
           </div>
 
-          <div className="overflow-x-auto">
-            <table className="w-full border-collapse text-sm">
+          <div className="overflow-x-auto pb-4 touch-pan-x">
+            <table className="w-full border-collapse text-sm min-w-[1200px]">
               <thead>
-                <tr className="bg-[#1F2937] text-white">
+                <tr className="bg-[#1F2937] text-white whitespace-nowrap">
                   <th className="border border-gray-700 p-3 text-center w-12">№</th>
                   <th className="border border-gray-700 p-3 text-left">Номгӯи фанҳо</th>
                   <th className="border border-gray-700 p-3 text-center">Миқдори кредитҳо</th>
@@ -831,7 +825,7 @@ function ContactView() {
         <span>Тамос</span>
       </div>
 
-      <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
+      <div className="bg-white rounded-lg shadow-sm border border-gray-200">
         <div className="p-8">
           <h2 className="text-lg font-bold text-gray-800 mb-6 border-b pb-4">Тамос</h2>
           
@@ -884,7 +878,7 @@ function ProfileView({ studentData }: { studentData: any }) {
         <span>Нимсолаи 2</span>
       </div>
 
-      <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
+      <div className="bg-white rounded-lg shadow-sm border border-gray-200">
         <div className="p-6">
           <h2 className="text-lg font-bold text-gray-800 mb-6 border-b pb-4">Маълумотнома</h2>
           
@@ -893,7 +887,22 @@ function ProfileView({ studentData }: { studentData: any }) {
             {/* Photo Placeholder */}
             <div className="w-44 h-56 shrink-0 border-4 border-white shadow-xl rounded-lg overflow-hidden bg-gray-50 flex items-center justify-center">
               {studentData.photo ? (
-                <img src={studentData.photo} alt="Profile" className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" />
+                <img 
+                  src={studentData.photo} 
+                  alt="Profile" 
+                  referrerPolicy="no-referrer"
+                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" 
+                  onError={(e) => {
+                    e.currentTarget.style.display = 'none';
+                    const parent = e.currentTarget.parentElement;
+                    if (parent) {
+                      const fallback = document.createElement('div');
+                      fallback.className = 'flex items-center justify-center w-full h-full bg-gray-100';
+                      fallback.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gray-400"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>';
+                      parent.appendChild(fallback);
+                    }
+                  }}
+                />
               ) : (
                 <User size={80} className="text-gray-400" />
               )}
@@ -955,7 +964,6 @@ function ProfileView({ studentData }: { studentData: any }) {
               </div>
             </div>
             <InfoRow label="Телефон:" value={studentData.phone} />
-            <InfoRow label="Бори охир:" value={studentData.lastVisit} />
             <div className="flex border border-gray-200">
               <div className="w-1/2 p-2 bg-gray-50 text-gray-600 text-sm border-r border-gray-200">№ Шинонома:</div>
               <div className="w-1/2 p-2 font-bold text-gray-800 text-sm flex items-center space-x-1">
@@ -983,10 +991,10 @@ function ProfileView({ studentData }: { studentData: any }) {
           {/* Academic History Table */}
           <div className="space-y-4">
             <h3 className="font-bold text-gray-800 text-sm">Таърихи таҳсилот</h3>
-            <div className="overflow-x-auto">
-              <table className="w-full text-xs border-collapse border border-gray-200">
+            <div className="overflow-x-auto touch-pan-x">
+              <table className="w-full text-xs border-collapse border border-gray-200 min-w-[900px]">
                 <thead>
-                  <tr className="bg-[#2D3748] text-white">
+                  <tr className="bg-[#2D3748] text-white whitespace-nowrap">
                     <th className="border border-gray-600 p-2">Соли таҳсил</th>
                     <th className="border border-gray-600 p-2">Семестр</th>
                     <th className="border border-gray-600 p-2">Факултет</th>
@@ -1097,14 +1105,14 @@ function GradesView() {
 
 function GradeTable({ title, data = [], noData = false }: { title: string, data?: any[], noData?: boolean }) {
   return (
-    <div className="bg-white rounded shadow-sm overflow-hidden border border-gray-200">
+    <div className="bg-white rounded shadow-sm border border-gray-200">
       <div className="bg-[#2D3748] text-white py-2 px-4 text-center font-bold text-sm">
         {title}
       </div>
-      <div className="overflow-x-auto">
-        <table className="w-full text-xs border-collapse">
+      <div className="overflow-x-auto pb-2 touch-pan-x">
+        <table className="w-full text-xs border-collapse min-w-[1000px]">
           <thead>
-            <tr className="bg-[#2D3748] text-white border-t border-gray-600">
+            <tr className="bg-[#2D3748] text-white border-t border-gray-600 whitespace-nowrap">
               <th className="border border-gray-600 p-2 w-10">№</th>
               <th className="border border-gray-600 p-2 text-left">Номгӯи фанҳо</th>
               <th className="border border-gray-600 p-2 w-20">Миқдори кредитҳо</th>
@@ -1192,14 +1200,14 @@ function ExamsView() {
         <span>Нимсолаи 2</span>
       </div>
 
-      <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
+      <div className="bg-white rounded-lg shadow-sm border border-gray-200">
         <div className="p-6">
           <h2 className="text-lg font-bold text-gray-800 mb-6 border-b pb-4">Ҷадвали имтиҳонҳо</h2>
           
-          <div className="overflow-x-auto">
-            <table className="w-full text-xs border-collapse border border-gray-200">
+          <div className="overflow-x-auto pb-4 touch-pan-x">
+            <table className="w-full text-xs border-collapse border border-gray-200 min-w-[1200px]">
               <thead>
-                <tr className="bg-[#2D3748] text-white">
+                <tr className="bg-[#2D3748] text-white whitespace-nowrap">
                   <th className="border border-gray-600 p-2 w-10">№</th>
                   <th className="border border-gray-600 p-2 w-16">ID ФАН</th>
                   <th className="border border-gray-600 p-2 text-left">Номгӯи фанҳо</th>
