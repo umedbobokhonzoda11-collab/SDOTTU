@@ -113,7 +113,7 @@ export default function App() {
 
   return (
     <>
-      <div className="min-h-screen bg-[#F3F4F6] overflow-y-auto">
+      <div className="min-h-screen bg-[#F3F4F6] overflow-y-auto" style={{ zoom: 0.7 }}>
         <div className={`min-h-screen flex flex-col ${isDesktopView ? 'max-w-[1440px] w-full mx-auto shadow-2xl' : 'w-full'}`}>
           <AnimatePresence mode="wait">
           {!isLoggedIn ? (
@@ -806,6 +806,42 @@ function MyLessonsView({ studentData }: { studentData: any }) {
                     Султонзода Шерхон Муртазо, Зокирзода Аминҷон Раҳмон, Пирова Шамсия Ҳотамовна, Ғаниев Зокирҷон Султонович, Давлатшоев Доробшо Сафарович, Қасобов Лоиқ Сафарович, Қирғизов Алифбек Қирғизович, Раҳимзода Ҷамшед Бобомурод, Раҳимзода Фирдавс
                   </td>
                 </tr>
+                <tr className="hover:bg-gray-50 transition-colors">
+                  <td className="border border-gray-200 p-3 text-center font-bold">4.</td>
+                  <td className="border border-gray-200 p-3">Равандҳои гузарандаи электромагнитӣ ва электромеханикӣ дар системаҳои электроэнергетикӣ</td>
+                  <td className="border border-gray-200 p-3 text-center">3</td>
+                  <td className="border border-gray-200 p-3 text-center">50</td>
+                  <td className="border border-gray-200 p-3 text-center">55</td>
+                  <td className="border border-gray-200 p-3 text-center">0</td>
+                  <td className="border border-gray-200 p-3 text-center">0</td>
+                  <td className="border border-gray-200 p-3 text-center">F (0)</td>
+                  <td className="border border-gray-200 p-3">
+                    Султонзода Шерхон Муртазо<br />
+                    Сафаралиев Муродбек Холназарович
+                  </td>
+                </tr>
+                <tr className="hover:bg-gray-50 transition-colors">
+                  <td className="border border-gray-200 p-3 text-center font-bold">5.</td>
+                  <td className="border border-gray-200 p-3">Эътимоднокии таҷҳизотҳои электрикӣ</td>
+                  <td className="border border-gray-200 p-3 text-center">3</td>
+                  <td className="border border-gray-200 p-3 text-center">51</td>
+                  <td className="border border-gray-200 p-3 text-center">77</td>
+                  <td className="border border-gray-200 p-3 text-center">0</td>
+                  <td className="border border-gray-200 p-3 text-center">0</td>
+                  <td className="border border-gray-200 p-3 text-center">F (0)</td>
+                  <td className="border border-gray-200 p-3">Раҳимзода Фирдавс Мирзоумар</td>
+                </tr>
+                <tr className="hover:bg-gray-50 transition-colors">
+                  <td className="border border-gray-200 p-3 text-center font-bold">6.</td>
+                  <td className="border border-gray-200 p-3">Лоиҳакашии қисми электрикии неругоҳҳо ва зернеругоҳҳо</td>
+                  <td className="border border-gray-200 p-3 text-center">6</td>
+                  <td className="border border-gray-200 p-3 text-center">61</td>
+                  <td className="border border-gray-200 p-3 text-center">70</td>
+                  <td className="border border-gray-200 p-3 text-center">0</td>
+                  <td className="border border-gray-200 p-3 text-center">0</td>
+                  <td className="border border-gray-200 p-3 text-center">F (0)</td>
+                  <td className="border border-gray-200 p-3">Қирғизов Алифбек Қирғизович</td>
+                </tr>
               </tbody>
             </table>
           </div>
@@ -1098,6 +1134,19 @@ function GradesView() {
       <GradeTable 
         title="Курси 4, соли таҳсили 2025-2026, нимсолаи 1"
         data={[]}
+      />
+
+      {/* Semester 2 - Kurs 4 */}
+      <GradeTable 
+        title="Курси 4, соли таҳсили 2025-2026, нимсолаи 2"
+        data={[
+          { id: 1, name: 'Таҷрибаомӯзии пешаздипломӣ', credits: 6, r1: 0, r2: 0, exam: 0, total: 0, grade: 'F (0)', teacher: 'Қасобов Лоиқ Сафарович' },
+          { id: 2, name: 'Имтиҳони давлатӣ', credits: 3, r1: 0, r2: 0, exam: 0, total: 0, grade: 'F (0)', teacher: 'Султонзода Шерхон Муртазо, Зокирзода Аминҷон Раҳмон' },
+          { id: 3, name: 'Кори тахассусии хатм', credits: 9, r1: 0, r2: 0, exam: 0, total: 0, grade: 'F (0)', teacher: 'Султонзода Шерхон Муртазо, Зокирзода Аминҷон Раҳмон, Пирова Шамсия Ҳотамовна, Ғаниев Зокирҷон Султонович, Давлатшоев Доробшо, Қасобов Лоиқ Сафарович, Қирғизов Алифбек Қирғизович, Раҳимзода Ҷамшед Бобомурод, Раҳимзода Фирдавс' },
+          { id: 4, name: 'Равандҳои гузарандаи электромагнитӣ ва электромеханикӣ дар системаҳои электроэнергетикӣ', credits: 3, r1: 50, r2: 55, exam: 0, total: 0, grade: 'F (0)', teacher: 'Султонзода Шерхон Муртазо, Сафаралиев Муродбек Холназарович' },
+          { id: 5, name: 'Эътимоднокии таҷҳизотҳои электрикӣ', credits: 3, r1: 51, r2: 77, exam: 0, total: 0, grade: 'F (0)', teacher: 'Раҳимзода Фирдавс Мирзоумар' },
+          { id: 6, name: 'Лоиҳакашии қисми електрикии неругоҳҳо ва зернеругоҳҳо', credits: 6, r1: 61, r2: 70, exam: 0, total: 0, grade: 'F (0)', teacher: 'Қирғизов Алифбек Қирғизович' },
+        ]}
       />
     </div>
   );
