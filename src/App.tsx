@@ -149,12 +149,12 @@ export default function App() {
           />
           
           {/* Dark Overlay Container with Glow */}
-          <div className="absolute inset-0 z-10 flex items-center justify-center p-4 sm:p-8 md:p-12">
+          <div className="absolute inset-0 z-10 flex items-center justify-center pt-8 px-4 sm:px-8 md:px-12 pb-0">
             <motion.div 
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
-              className="relative w-full max-w-2xl h-full bg-gradient-to-b from-black/20 via-black/40 to-black/90 backdrop-blur-[30px] rounded-t-[40px] border-x border-t border-white/20 shadow-[0_-20px_80px_rgba(0,0,0,0.5)] flex flex-col items-center overflow-y-auto custom-scrollbar p-8 md:p-12 mt-auto"
+              className="relative w-full max-w-2xl h-full bg-gradient-to-b from-black/0 via-black/5 to-black/30 backdrop-blur-[8px] rounded-t-[50px] border-x border-t border-white/20 shadow-[0_-20px_100px_rgba(0,0,0,0.2)] flex flex-col items-center overflow-y-auto custom-scrollbar p-8 md:p-12 mt-auto"
             >
               {/* Logo */}
               <div className="w-48 h-48 md:w-56 md:h-56 relative mb-6 flex items-center justify-center shrink-0">
