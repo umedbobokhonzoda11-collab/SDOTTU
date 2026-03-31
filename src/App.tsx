@@ -140,82 +140,88 @@ export default function App() {
           exit={{ opacity: 0 }}
           className="relative min-h-screen w-full flex flex-col items-center justify-center overflow-hidden font-sans"
         >
-          {/* Background Image with Overlay */}
+          {/* Background Image */}
           <div 
-            className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat transition-transform duration-1000 scale-100"
+            className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat"
             style={{ 
               backgroundImage: `url('${loginBgUrl}')`,
-              filter: 'brightness(0.5)'
             }}
           />
           
-          {/* Content Container */}
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-            className="relative z-10 w-full max-w-md px-8 flex flex-col items-center text-center space-y-8"
-          >
-            {/* Logo */}
-            <div className="w-64 h-64 relative mb-4 flex items-center justify-center">
-              <img 
-                src={logoUrl} 
-                alt="TTU Logo" 
-                className="w-full h-full object-contain drop-shadow-2xl"
-                referrerPolicy="no-referrer"
-                loading="eager"
-              />
-            </div>
-
-            {/* Title */}
-            <div className="space-y-1 text-white">
-              <h1 className="text-4xl font-bold leading-tight tracking-wide">Системаи</h1>
-              <h1 className="text-4xl font-bold leading-tight tracking-wide">иттилоотии</h1>
-              <h2 className="text-3xl font-bold leading-tight mt-2">Донишгоҳи техникии</h2>
-              <h2 className="text-3xl font-bold leading-tight">Тоҷикистон ба номи</h2>
-              <h2 className="text-3xl font-bold leading-tight">академик М.С.Осимӣ</h2>
-            </div>
-
-            {/* Login Form */}
-            <div className="w-full space-y-6 mt-6">
-              <div className="flex flex-col items-start space-y-2">
-                <label className="text-white text-sm font-medium ml-1 opacity-90">Логин</label>
-                <input
-                  type="text"
-                  value={login}
-                  onChange={(e) => setLogin(e.target.value)}
-                  className="w-full bg-[#E8F0FE] text-gray-900 px-4 py-4 rounded-sm outline-none border-b-[4px] border-purple-600 transition-all duration-300 text-xl shadow-lg"
+          {/* Dark Overlay Container with Glow */}
+          <div className="absolute inset-0 z-10 flex items-center justify-center p-4 sm:p-8 md:p-12">
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8 }}
+              className="relative w-full max-w-2xl h-full max-h-[90vh] bg-black/40 backdrop-blur-[30px] rounded-[40px] border border-white/20 shadow-[0_0_80px_rgba(0,0,0,0.6),0_0_40px_rgba(255,255,255,0.05)] flex flex-col items-center overflow-y-auto custom-scrollbar p-8 md:p-12"
+            >
+              {/* Logo */}
+              <div className="w-48 h-48 md:w-56 md:h-56 relative mb-6 flex items-center justify-center shrink-0">
+                <img 
+                  src={logoUrl} 
+                  alt="TTU Logo" 
+                  className="w-full h-full object-contain drop-shadow-[0_0_20px_rgba(255,255,255,0.3)]"
+                  referrerPolicy="no-referrer"
+                  loading="eager"
                 />
               </div>
 
-              <div className="flex flex-col items-start space-y-2">
-                <label className="text-white text-sm font-medium ml-1 opacity-90">Парол</label>
-                <div className="w-full relative">
-                  <input
-                    type={showPassword ? "text" : "password"}
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    className="w-full bg-[#E8F0FE] text-gray-900 px-4 py-4 rounded-sm outline-none border-b-[4px] border-purple-600 transition-all duration-300 text-xl pr-14 shadow-lg"
-                  />
-                  <button 
-                    onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 transition-colors"
-                  >
-                    {showPassword ? <EyeOff size={22} /> : <Eye size={22} />}
-                  </button>
-                </div>
+              {/* Title */}
+              <div className="space-y-1 text-white text-center mb-10 shrink-0">
+                <h1 className="text-2xl md:text-3xl font-bold leading-tight tracking-wide opacity-90">Системаи иттилоотии</h1>
+                <h2 className="text-xl md:text-2xl font-bold leading-tight mt-2 text-blue-400">Донишгоҳи техникии Тоҷикистон</h2>
+                <h2 className="text-lg md:text-xl font-medium opacity-80">ба номи академик М.С.Осимӣ</h2>
               </div>
 
-              <motion.button
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                onClick={handleLogin}
-                className="w-full mt-10 py-5 rounded-full bg-gradient-to-r from-[#33CCFF] to-[#B249F0] text-white font-bold text-xl tracking-widest shadow-2xl transition-all duration-300 uppercase"
-              >
-                ДАРОМАДАН
-              </motion.button>
-            </div>
-          </motion.div>
+              {/* Login Form */}
+              <div className="w-full max-w-md space-y-8">
+                <div className="flex flex-col items-start space-y-2">
+                  <label className="text-white/70 text-sm font-medium ml-1">Логин</label>
+                  <input
+                    type="text"
+                    value={login}
+                    onChange={(e) => setLogin(e.target.value)}
+                    className="w-full bg-white/5 text-white px-5 py-4 rounded-xl outline-none border border-white/10 focus:border-[#00F2FE] focus:bg-white/10 transition-all duration-300 text-xl placeholder:text-white/20"
+                    placeholder="Логин"
+                  />
+                </div>
+
+                <div className="flex flex-col items-start space-y-2">
+                  <label className="text-white/70 text-sm font-medium ml-1">Парол</label>
+                  <div className="w-full relative">
+                    <input
+                      type={showPassword ? "text" : "password"}
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      className="w-full bg-white/5 text-white px-5 py-4 rounded-xl outline-none border border-white/10 focus:border-[#00F2FE] focus:bg-white/10 transition-all duration-300 text-xl pr-14 placeholder:text-white/20"
+                      placeholder="Парол"
+                    />
+                    <button 
+                      onClick={() => setShowPassword(!showPassword)}
+                      className="absolute right-4 top-1/2 -translate-y-1/2 text-white/40 hover:text-white transition-colors"
+                    >
+                      {showPassword ? <EyeOff size={22} /> : <Eye size={22} />}
+                    </button>
+                  </div>
+                </div>
+
+                <motion.button
+                  whileHover={{ scale: 1.02, boxShadow: "0 0 30px rgba(0, 242, 254, 0.4)" }}
+                  whileTap={{ scale: 0.98 }}
+                  onClick={handleLogin}
+                  className="w-full mt-12 py-5 rounded-2xl bg-gradient-to-r from-[#00F2FE] to-[#7367F0] text-white font-bold text-xl tracking-widest shadow-xl transition-all duration-300 uppercase hover:brightness-110"
+                >
+                  ДАРОМАДАН
+                </motion.button>
+              </div>
+
+              {/* Footer text inside container */}
+              <div className="mt-auto pt-12 text-white/30 text-xs text-center">
+                © {new Date().getFullYear()} SDO.TTU.TJ. Ҳамаи ҳуқуқҳо маҳфузанд.
+              </div>
+            </motion.div>
+          </div>
         </motion.div>
       ) : (
         <motion.div
