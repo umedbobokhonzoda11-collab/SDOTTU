@@ -4,7 +4,7 @@
  */
 
 import { useState, ReactNode, useEffect } from 'react';
-import { Eye, EyeOff, List, Calendar, BarChart3, User, Phone, LogOut, MoreHorizontal, Menu as MenuIcon, AlertTriangle, Home, ChevronRight, Settings, X, Upload } from 'lucide-react';
+import { Eye, EyeOff, List, Calendar, BarChart3, User, Phone, LogOut, MoreHorizontal, Menu as MenuIcon, AlertTriangle, Home, ChevronRight, Settings, X, Upload, Megaphone } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
 type TabType = 'lessons' | 'exams' | 'grades' | 'profile' | 'contact';
@@ -129,7 +129,7 @@ export default function App() {
 
   return (
     <>
-      <div className="min-h-screen bg-black overflow-y-auto" style={{ zoom: 0.7 }}>
+      <div className="min-h-screen bg-black overflow-x-hidden">
         <div className={`min-h-screen flex flex-col ${isDesktopView ? 'max-w-[1440px] w-full mx-auto shadow-2xl' : 'w-full'}`}>
           <AnimatePresence mode="wait">
           {!isLoggedIn ? (
@@ -138,23 +138,23 @@ export default function App() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="relative min-h-screen w-full flex flex-col items-center justify-center overflow-hidden font-sans"
+          className="relative h-screen w-full flex flex-col items-center justify-center overflow-hidden font-sans"
         >
           {/* Background Image */}
           <div 
-            className="fixed inset-0 z-0 bg-cover bg-center bg-no-repeat"
+            className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat"
             style={{ 
               backgroundImage: `url('${loginBgUrl}')`,
             }}
           />
           
           {/* Dark Overlay Container with Glow */}
-          <div className="absolute inset-0 z-10 flex items-center justify-center pt-12 px-4 sm:px-8 md:px-12 pb-0">
+          <div className="absolute inset-0 z-10 flex flex-col items-center justify-end pt-12 px-4 sm:px-8 md:px-12">
             <motion.div 
-              initial={{ opacity: 0, y: 40 }}
+              initial={{ opacity: 0, y: 100 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, ease: "easeOut" }}
-              className="relative w-full max-w-2xl h-full bg-gradient-to-b from-transparent via-black/0 to-black/10 backdrop-blur-[4px] rounded-t-[60px] border-x border-t border-white/5 shadow-[0_-30px_120px_rgba(0,0,0,0.1)] flex flex-col items-center overflow-y-auto custom-scrollbar p-8 md:p-12 mt-auto"
+              className="relative w-full max-w-2xl h-[90%] bg-gradient-to-b from-transparent via-black/5 to-black/20 backdrop-blur-[4px] rounded-t-[60px] border-x border-t border-white/5 shadow-[0_-30px_120px_rgba(0,0,0,0.1)] flex flex-col items-center overflow-y-auto custom-scrollbar p-8 md:p-12"
             >
               {/* Logo */}
               <div className="w-48 h-48 md:w-56 md:h-56 relative mb-6 flex items-center justify-center shrink-0">
@@ -168,10 +168,10 @@ export default function App() {
               </div>
 
               {/* Title */}
-              <div className="space-y-1 text-white text-center mb-10 shrink-0">
-                <h1 className="text-2xl md:text-3xl font-bold leading-tight tracking-wide opacity-90">Системаи иттилоотии</h1>
-                <h2 className="text-xl md:text-2xl font-bold leading-tight mt-2 text-blue-400">Донишгоҳи техникии Тоҷикистон</h2>
-                <h2 className="text-lg md:text-xl font-medium opacity-80">ба номи академик М.С.Осимӣ</h2>
+              <div className="space-y-2 text-white text-center mb-10 shrink-0">
+                <h1 className="text-3xl md:text-4xl font-bold leading-tight tracking-wide">Системаи иттилоотии</h1>
+                <h2 className="text-2xl md:text-3xl font-bold leading-tight mt-2">Донишгоҳи техникии Тоҷикистон</h2>
+                <h2 className="text-xl md:text-2xl font-medium">ба номи академик М.С.Осимӣ</h2>
               </div>
 
               {/* Login Form */}
@@ -827,9 +827,7 @@ function MyLessonsView({ studentData }: { studentData: any }) {
       {/* Announcement Banner */}
       <div className="bg-red-600 text-white p-8 shadow-lg relative overflow-hidden -mx-6">
         <div className="relative z-10 flex flex-col items-center text-center space-y-6">
-          <div className="bg-white p-4 rounded-full">
-            <AlertTriangle size={48} className="text-red-600" />
-          </div>
+          <AlertTriangle size={64} className="text-white" />
           <h2 className="text-4xl font-black tracking-widest">ЭЪЛОН!!!</h2>
           
           <div className="space-y-4 text-lg font-bold leading-relaxed max-w-5xl">
