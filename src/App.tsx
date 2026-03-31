@@ -21,6 +21,22 @@ export default function App() {
   const [showSaveSuccess, setShowSaveSuccess] = useState(false);
   const [isDesktopView, setIsDesktopView] = useState(false);
 
+  const [logoUrl, setLogoUrl] = useState(() => {
+    return typeof window !== 'undefined' ? localStorage.getItem('app_logo_url') || 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/01/Tajik_Technical_University_Logo.png/512px-Tajik_Technical_University_Logo.png' : 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/01/Tajik_Technical_University_Logo.png/512px-Tajik_Technical_University_Logo.png';
+  });
+
+  const [loginBgUrl, setLoginBgUrl] = useState(() => {
+    return typeof window !== 'undefined' ? localStorage.getItem('app_login_bg_url') || 'https://ttu.tj/wp-content/uploads/2021/04/IMG_20210420_111054-scaled.jpg' : 'https://ttu.tj/wp-content/uploads/2021/04/IMG_20210420_111054-scaled.jpg';
+  });
+
+  useEffect(() => {
+    localStorage.setItem('app_logo_url', logoUrl);
+  }, [logoUrl]);
+
+  useEffect(() => {
+    localStorage.setItem('app_login_bg_url', loginBgUrl);
+  }, [loginBgUrl]);
+
   useEffect(() => {
     // Standard responsive behavior
   }, [isDesktopView]);
@@ -128,7 +144,7 @@ export default function App() {
           <div 
             className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat transition-transform duration-1000 scale-100"
             style={{ 
-              backgroundImage: `url('https://ttu.tj/wp-content/uploads/2021/04/IMG_20210420_111054-scaled.jpg')`,
+              backgroundImage: `url('${loginBgUrl}')`,
               filter: 'brightness(0.5)'
             }}
           />
@@ -141,12 +157,13 @@ export default function App() {
             className="relative z-10 w-full max-w-md px-8 flex flex-col items-center text-center space-y-8"
           >
             {/* Logo */}
-            <div className="w-48 h-48 relative mb-2 flex items-center justify-center">
+            <div className="w-64 h-64 relative mb-4 flex items-center justify-center">
               <img 
-                src="https://ttu.tj/wp-content/uploads/2021/04/logo-ttu-1.png" 
+                src={logoUrl} 
                 alt="TTU Logo" 
                 className="w-full h-full object-contain drop-shadow-2xl"
                 referrerPolicy="no-referrer"
+                loading="eager"
               />
             </div>
 
@@ -324,7 +341,7 @@ export default function App() {
               <nav className="flex-1 overflow-y-auto">
                 <SidebarItem 
                   icon={<List size={20} />} 
-                  label="Рӯйхати дарсҳо" 
+                  label="Фанҳои ман" 
                   active={activeTab === 'lessons'} 
                   onClick={() => handleTabChange('lessons')}
                 />
@@ -342,7 +359,7 @@ export default function App() {
                 />
                 <SidebarItem 
                   icon={<User size={20} />} 
-                  label="Маълумотномаи ман" 
+                  label="Маълумоти ман" 
                   active={activeTab === 'profile'} 
                   onClick={() => handleTabChange('profile')}
                 />
@@ -366,7 +383,7 @@ export default function App() {
 
               {activeTab === 'grades' && <GradesView />}
               {activeTab === 'profile' && <ProfileView studentData={studentData} />}
-              {activeTab === 'contact' && <ContactView />}
+              {activeTab === 'contact' && <ContactView logoUrl={logoUrl} />}
               {activeTab === 'exams' && <ExamsView />}
             </main>
           </div>
@@ -664,6 +681,94 @@ export default function App() {
                     />
                   </div>
                 </div>
+
+                <div className="pt-6 border-t space-y-4">
+                  <h4 className="text-sm font-bold text-gray-700 uppercase tracking-wider flex items-center gap-2">
+                    <Settings size={16} className="text-purple-600" />
+                    Танзимоти намуди зоҳирӣ
+                  </h4>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {/* Logo Settings */}
+                    <div className="space-y-3">
+                      <label className="text-xs font-bold text-gray-500 uppercase block">Логотипи барнома</label>
+                      <div className="flex items-center gap-3">
+                        <div className="w-12 h-12 border rounded bg-gray-50 flex items-center justify-center overflow-hidden shrink-0">
+                          <img src={logoUrl} alt="Logo Preview" className="w-full h-full object-contain" />
+                        </div>
+                        <div className="flex-1 space-y-2">
+                          <input 
+                            type="text" 
+                            value={logoUrl}
+                            onChange={(e) => setLogoUrl(e.target.value)}
+                            placeholder="Пайванд (URL)"
+                            className="w-full p-2 border rounded-lg focus:ring-2 focus:ring-purple-500 outline-none text-xs"
+                          />
+                          <label className="flex items-center justify-center gap-2 p-2 bg-purple-50 text-purple-700 rounded-lg cursor-pointer hover:bg-purple-100 transition-colors text-xs font-medium border border-purple-200">
+                            <Upload size={14} />
+                            Аз галерея интихоб кунед
+                            <input 
+                              type="file" 
+                              className="hidden" 
+                              accept="image/*"
+                              onChange={(e) => {
+                                const file = e.target.files?.[0];
+                                if (file) {
+                                  if (file.size > 1 * 1024 * 1024) {
+                                    alert("Ҳаҷми акс бояд аз 1МБ хурдтар бошад.");
+                                    return;
+                                  }
+                                  const reader = new FileReader();
+                                  reader.onloadend = () => setLogoUrl(reader.result as string);
+                                  reader.readAsDataURL(file);
+                                }
+                              }}
+                            />
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Background Settings */}
+                    <div className="space-y-3">
+                      <label className="text-xs font-bold text-gray-500 uppercase block">Фони воридшавӣ</label>
+                      <div className="flex items-center gap-3">
+                        <div className="w-12 h-12 border rounded bg-gray-50 flex items-center justify-center overflow-hidden shrink-0">
+                          <img src={loginBgUrl} alt="BG Preview" className="w-full h-full object-cover" />
+                        </div>
+                        <div className="flex-1 space-y-2">
+                          <input 
+                            type="text" 
+                            value={loginBgUrl}
+                            onChange={(e) => setLoginBgUrl(e.target.value)}
+                            placeholder="Пайванд (URL)"
+                            className="w-full p-2 border rounded-lg focus:ring-2 focus:ring-purple-500 outline-none text-xs"
+                          />
+                          <label className="flex items-center justify-center gap-2 p-2 bg-purple-50 text-purple-700 rounded-lg cursor-pointer hover:bg-purple-100 transition-colors text-xs font-medium border border-purple-200">
+                            <Upload size={14} />
+                            Аз галерея интихоб кунед
+                            <input 
+                              type="file" 
+                              className="hidden" 
+                              accept="image/*"
+                              onChange={(e) => {
+                                const file = e.target.files?.[0];
+                                if (file) {
+                                  if (file.size > 1.5 * 1024 * 1024) {
+                                    alert("Ҳаҷми акс бояд аз 1.5МБ хурдтар бошад.");
+                                    return;
+                                  }
+                                  const reader = new FileReader();
+                                  reader.onloadend = () => setLoginBgUrl(reader.result as string);
+                                  reader.readAsDataURL(file);
+                                }
+                              }}
+                            />
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
 
               <div className="p-6 border-t bg-gray-50 flex justify-end items-center gap-4">
@@ -714,7 +819,7 @@ function MyLessonsView({ studentData }: { studentData: any }) {
       </div>
 
       {/* Announcement Banner */}
-      <div className="bg-red-600 text-white rounded-lg p-8 shadow-lg relative overflow-hidden">
+      <div className="bg-red-600 text-white p-8 shadow-lg relative overflow-hidden -mx-6">
         <div className="relative z-10 flex flex-col items-center text-center space-y-6">
           <div className="bg-white p-4 rounded-full">
             <AlertTriangle size={48} className="text-red-600" />
@@ -812,9 +917,9 @@ function MyLessonsView({ studentData }: { studentData: any }) {
                   <td className="border border-gray-200 p-3 text-center">3</td>
                   <td className="border border-gray-200 p-3 text-center">50</td>
                   <td className="border border-gray-200 p-3 text-center">55</td>
-                  <td className="border border-gray-200 p-3 text-center">0</td>
-                  <td className="border border-gray-200 p-3 text-center">0</td>
-                  <td className="border border-gray-200 p-3 text-center">F (0)</td>
+                  <td className="border border-gray-200 p-3 text-center">65</td>
+                  <td className="border border-gray-200 p-3 text-center">59</td>
+                  <td className="border border-gray-200 p-3 text-center">D+ (1.33)</td>
                   <td className="border border-gray-200 p-3">
                     Султонзода Шерхон Муртазо<br />
                     Сафаралиев Муродбек Холназарович
@@ -826,20 +931,20 @@ function MyLessonsView({ studentData }: { studentData: any }) {
                   <td className="border border-gray-200 p-3 text-center">3</td>
                   <td className="border border-gray-200 p-3 text-center">51</td>
                   <td className="border border-gray-200 p-3 text-center">77</td>
-                  <td className="border border-gray-200 p-3 text-center">0</td>
-                  <td className="border border-gray-200 p-3 text-center">0</td>
-                  <td className="border border-gray-200 p-3 text-center">F (0)</td>
+                  <td className="border border-gray-200 p-3 text-center">77</td>
+                  <td className="border border-gray-200 p-3 text-center">73</td>
+                  <td className="border border-gray-200 p-3 text-center">C+ (2.33)</td>
                   <td className="border border-gray-200 p-3">Раҳимзода Фирдавс Мирзоумар</td>
                 </tr>
                 <tr className="hover:bg-gray-50 transition-colors">
                   <td className="border border-gray-200 p-3 text-center font-bold">6.</td>
-                  <td className="border border-gray-200 p-3">Лоиҳакашии қисми электрикии неругоҳҳо ва зернеругоҳҳо</td>
+                  <td className="border border-gray-200 p-3">Лоиҳакашии қисми електрикии неругоҳҳо ва зернеругоҳҳо</td>
                   <td className="border border-gray-200 p-3 text-center">6</td>
                   <td className="border border-gray-200 p-3 text-center">61</td>
                   <td className="border border-gray-200 p-3 text-center">70</td>
-                  <td className="border border-gray-200 p-3 text-center">0</td>
-                  <td className="border border-gray-200 p-3 text-center">0</td>
-                  <td className="border border-gray-200 p-3 text-center">F (0)</td>
+                  <td className="border border-gray-200 p-3 text-center">85</td>
+                  <td className="border border-gray-200 p-3 text-center">78</td>
+                  <td className="border border-gray-200 p-3 text-center">B- (2.67)</td>
                   <td className="border border-gray-200 p-3">Қирғизов Алифбек Қирғизович</td>
                 </tr>
               </tbody>
@@ -851,7 +956,7 @@ function MyLessonsView({ studentData }: { studentData: any }) {
   );
 }
 
-function ContactView() {
+function ContactView({ logoUrl }: { logoUrl: string }) {
   return (
     <div className="p-6 space-y-6">
       {/* Breadcrumbs */}
@@ -870,11 +975,13 @@ function ContactView() {
               10.152.18.158
             </div>
 
-            <div className="w-64 h-64">
+            <div className="w-72 h-72">
               <img 
-                src="https://ttu.tj/wp-content/uploads/2021/04/logo-ttu-1.png" 
+                src={logoUrl} 
                 alt="TTU Logo" 
                 className="w-full h-full object-contain"
+                referrerPolicy="no-referrer"
+                loading="eager"
               />
             </div>
 
@@ -1143,9 +1250,9 @@ function GradesView() {
           { id: 1, name: 'Таҷрибаомӯзии пешаздипломӣ', credits: 6, r1: 0, r2: 0, exam: 0, total: 0, grade: 'F (0)', teacher: 'Қасобов Лоиқ Сафарович' },
           { id: 2, name: 'Имтиҳони давлатӣ', credits: 3, r1: 0, r2: 0, exam: 0, total: 0, grade: 'F (0)', teacher: 'Султонзода Шерхон Муртазо, Зокирзода Аминҷон Раҳмон' },
           { id: 3, name: 'Кори тахассусии хатм', credits: 9, r1: 0, r2: 0, exam: 0, total: 0, grade: 'F (0)', teacher: 'Султонзода Шерхон Муртазо, Зокирзода Аминҷон Раҳмон, Пирова Шамсия Ҳотамовна, Ғаниев Зокирҷон Султонович, Давлатшоев Доробшо, Қасобов Лоиқ Сафарович, Қирғизов Алифбек Қирғизович, Раҳимзода Ҷамшед Бобомурод, Раҳимзода Фирдавс' },
-          { id: 4, name: 'Равандҳои гузарандаи электромагнитӣ ва электромеханикӣ дар системаҳои электроэнергетикӣ', credits: 3, r1: 50, r2: 55, exam: 0, total: 0, grade: 'F (0)', teacher: 'Султонзода Шерхон Муртазо, Сафаралиев Муродбек Холназарович' },
-          { id: 5, name: 'Эътимоднокии таҷҳизотҳои электрикӣ', credits: 3, r1: 51, r2: 77, exam: 0, total: 0, grade: 'F (0)', teacher: 'Раҳимзода Фирдавс Мирзоумар' },
-          { id: 6, name: 'Лоиҳакашии қисми електрикии неругоҳҳо ва зернеругоҳҳо', credits: 6, r1: 61, r2: 70, exam: 0, total: 0, grade: 'F (0)', teacher: 'Қирғизов Алифбек Қирғизович' },
+          { id: 4, name: 'Равандҳои гузарандаи электромагнитӣ ва электромеханикӣ дар системаҳои электроэнергетикӣ', credits: 3, r1: 50, r2: 55, exam: 65, total: 59, grade: 'D+ (1.33)', teacher: 'Султонзода Шерхон Муртазо, Сафаралиев Муродбек Холназарович' },
+          { id: 5, name: 'Эътимоднокии таҷҳизотҳои электрикӣ', credits: 3, r1: 51, r2: 77, exam: 77, total: 73, grade: 'C+ (2.33)', teacher: 'Раҳимзода Фирдавс Мирзоумар' },
+          { id: 6, name: 'Лоиҳакашии қисми електрикии неругоҳҳо ва зернеругоҳҳо', credits: 6, r1: 61, r2: 70, exam: 85, total: 78, grade: 'B- (2.67)', teacher: 'Қирғизов Алифбек Қирғизович' },
         ]}
       />
     </div>
@@ -1221,7 +1328,7 @@ function SidebarItem({ icon, label, active = false, onClick }: { icon: ReactNode
     >
       {active && <div className="absolute left-0 top-0 bottom-0 w-1 bg-[#3B82F6]"></div>}
       <span className={active ? 'text-[#3B82F6]' : 'text-gray-400'}>{icon}</span>
-      <span className="text-lg font-medium">{label}</span>
+      <span className="text-[0.7rem] font-medium">{label}</span>
     </button>
   );
 }
