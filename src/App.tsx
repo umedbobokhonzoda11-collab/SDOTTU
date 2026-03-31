@@ -129,7 +129,7 @@ export default function App() {
 
   return (
     <>
-      <div className="min-h-screen bg-[#F3F4F6] overflow-y-auto" style={{ zoom: 0.7 }}>
+      <div className="min-h-screen bg-black overflow-y-auto" style={{ zoom: 0.7 }}>
         <div className={`min-h-screen flex flex-col ${isDesktopView ? 'max-w-[1440px] w-full mx-auto shadow-2xl' : 'w-full'}`}>
           <AnimatePresence mode="wait">
           {!isLoggedIn ? (
@@ -142,19 +142,19 @@ export default function App() {
         >
           {/* Background Image */}
           <div 
-            className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat"
+            className="fixed inset-0 z-0 bg-cover bg-center bg-no-repeat"
             style={{ 
               backgroundImage: `url('${loginBgUrl}')`,
             }}
           />
           
           {/* Dark Overlay Container with Glow */}
-          <div className="absolute inset-0 z-10 flex items-center justify-center pt-8 px-4 sm:px-8 md:px-12 pb-0">
+          <div className="absolute inset-0 z-10 flex items-center justify-center pt-12 px-4 sm:px-8 md:px-12 pb-0">
             <motion.div 
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-              className="relative w-full max-w-2xl h-full bg-gradient-to-b from-black/0 via-black/5 to-black/30 backdrop-blur-[8px] rounded-t-[50px] border-x border-t border-white/20 shadow-[0_-20px_100px_rgba(0,0,0,0.2)] flex flex-col items-center overflow-y-auto custom-scrollbar p-8 md:p-12 mt-auto"
+              transition={{ duration: 1, ease: "easeOut" }}
+              className="relative w-full max-w-2xl h-full bg-gradient-to-b from-transparent via-black/0 to-black/10 backdrop-blur-[4px] rounded-t-[60px] border-x border-t border-white/5 shadow-[0_-30px_120px_rgba(0,0,0,0.1)] flex flex-col items-center overflow-y-auto custom-scrollbar p-8 md:p-12 mt-auto"
             >
               {/* Logo */}
               <div className="w-48 h-48 md:w-56 md:h-56 relative mb-6 flex items-center justify-center shrink-0">
