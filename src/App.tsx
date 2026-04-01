@@ -141,88 +141,95 @@ export default function App() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="relative h-screen w-full flex flex-col items-center justify-center overflow-hidden font-sans"
+          className="relative min-h-screen w-full flex flex-col items-center font-sans bg-black"
         >
-          {/* Background Image */}
+          {/* Background Image - Fixed to cover everything */}
           <div 
-            className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat"
+            className="fixed inset-0 z-0 bg-cover bg-center bg-no-repeat"
             style={{ 
               backgroundImage: `url('${loginBgUrl}')`,
             }}
           />
           
-          {/* Dark Overlay Container with Glow */}
-          <div className="absolute inset-0 z-10 flex flex-col items-center justify-end px-4 pt-10 sm:px-8 md:px-12">
+          {/* Semi-transparent Overlay - Fixed to cover everything */}
+          <div className="fixed inset-0 z-10 bg-black/40 backdrop-blur-[4px]" />
+
+          {/* Content Container - Scrollable if needed */}
+          <div className="relative z-20 w-full min-h-screen flex flex-col items-center p-6 sm:p-12 overflow-y-auto custom-scrollbar">
             <motion.div 
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.3 }}
-              className="relative w-full max-w-2xl flex-1 bg-gradient-to-b from-black/40 via-black/70 to-black/95 backdrop-blur-[8px] rounded-t-[40px] sm:rounded-t-[60px] border-x border-t border-white/10 shadow-[0_-30px_120px_rgba(0,0,0,0.5)] flex flex-col items-center overflow-y-auto custom-scrollbar p-8 md:p-12"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="w-full max-w-xl flex-1 flex flex-col items-center"
             >
               {/* Logo */}
-              <div className="w-32 h-32 sm:w-48 sm:h-48 md:w-56 md:h-56 relative mb-4 sm:mb-8 md:mb-12 flex items-center justify-center shrink-0">
+              <div className="w-44 h-44 sm:w-60 sm:h-60 md:w-72 md:h-72 relative mt-8 mb-8 flex items-center justify-center shrink-0">
                 <img 
                   src={logoUrl} 
                   alt="TTU Logo" 
-                  className="w-full h-full object-contain drop-shadow-[0_0_20px_rgba(255,255,255,0.3)]"
+                  className="w-full h-full object-contain drop-shadow-[0_0_40px_rgba(255,255,255,0.35)]"
                   referrerPolicy="no-referrer"
                   loading="eager"
                 />
               </div>
 
               {/* Title */}
-              <div className="space-y-0.5 sm:space-y-1 text-white text-center mb-6 sm:mb-12 md:mb-24 shrink-0">
-                <h1 className="text-2xl sm:text-4xl md:text-5xl font-bold leading-tight tracking-wide">Системаи иттилоотии</h1>
-                <h2 className="text-xl sm:text-3xl md:text-4xl font-bold leading-tight mt-1 sm:mt-2">Донишгоҳи техникии</h2>
-                <h2 className="text-xl sm:text-3xl md:text-4xl font-bold leading-tight">Тоҷикистон</h2>
-                <h2 className="text-lg sm:text-2xl md:text-3xl font-medium">ба номи академик</h2>
-                <h2 className="text-lg sm:text-2xl md:text-3xl font-medium">М.С.Осимӣ</h2>
+              <div className="space-y-1 text-white text-center mb-10 shrink-0">
+                <h1 className="text-2xl sm:text-4xl md:text-5xl font-bold leading-tight tracking-wide drop-shadow-lg">Системаи иттилоотии</h1>
+                <h2 className="text-xl sm:text-3xl md:text-4xl font-bold leading-tight mt-2 drop-shadow-lg">Донишгоҳи техникии</h2>
+                <h2 className="text-xl sm:text-3xl md:text-4xl font-bold leading-tight drop-shadow-lg">Тоҷикистон</h2>
+                <h2 className="text-lg sm:text-2xl md:text-3xl font-medium drop-shadow-lg">ба номи академик</h2>
+                <h2 className="text-lg sm:text-2xl md:text-3xl font-medium drop-shadow-lg">М.С.Осимӣ</h2>
               </div>
 
               {/* Login Form */}
-              <div className="w-full max-w-md space-y-4 sm:space-y-8">
-                <div className="flex flex-col items-start space-y-1 sm:space-y-2">
-                  <label className="text-white/70 text-xs sm:text-sm font-medium ml-1">Логин</label>
+              <div className="w-full max-w-md space-y-5 shrink-0">
+                <div className="flex flex-col items-start space-y-2">
+                  <label className="text-white/90 text-sm font-medium ml-1 drop-shadow-md">Логин</label>
                   <input
                     type="text"
                     value={login}
                     onChange={(e) => setLogin(e.target.value)}
-                    className="w-full bg-white/5 text-white px-4 py-3 sm:px-5 sm:py-4 rounded-xl outline-none border border-white/10 focus:border-[#00F2FE] focus:bg-white/10 transition-all duration-300 text-lg sm:text-xl placeholder:text-white/20"
+                    className="w-full bg-black/30 text-white px-5 py-4 rounded-2xl outline-none border border-white/30 focus:border-[#00F2FE] focus:bg-black/50 transition-all duration-300 text-xl placeholder:text-white/40 backdrop-blur-md"
                     placeholder="Логин"
                   />
                 </div>
 
-                <div className="flex flex-col items-start space-y-1 sm:space-y-2">
-                  <label className="text-white/70 text-xs sm:text-sm font-medium ml-1">Парол</label>
+                <div className="flex flex-col items-start space-y-2">
+                  <label className="text-white/90 text-sm font-medium ml-1 drop-shadow-md">Парол</label>
                   <div className="w-full relative">
                     <input
                       type={showPassword ? "text" : "password"}
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
-                      className="w-full bg-white/5 text-white px-4 py-3 sm:px-5 sm:py-4 rounded-xl outline-none border border-white/10 focus:border-[#00F2FE] focus:bg-white/10 transition-all duration-300 text-lg sm:text-xl pr-12 sm:pr-14 placeholder:text-white/20"
+                      className="w-full bg-black/30 text-white px-5 py-4 rounded-2xl outline-none border border-white/30 focus:border-[#00F2FE] focus:bg-black/50 transition-all duration-300 text-xl pr-14 placeholder:text-white/40 backdrop-blur-md"
                       placeholder="Парол"
                     />
                     <button 
                       onClick={() => setShowPassword(!showPassword)}
-                      className="absolute right-4 top-1/2 -translate-y-1/2 text-white/40 hover:text-white transition-colors"
+                      className="absolute right-4 top-1/2 -translate-y-1/2 text-white/60 hover:text-white transition-colors"
                     >
-                      {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                      {showPassword ? <EyeOff size={22} /> : <Eye size={22} />}
                     </button>
                   </div>
                 </div>
-
-                <motion.button
-                  whileHover={{ scale: 1.02, boxShadow: "0 0 40px rgba(115, 103, 240, 0.6)" }}
-                  whileTap={{ scale: 0.98 }}
-                  onClick={handleLogin}
-                  className="w-full mt-6 sm:mt-12 py-4 sm:py-5 rounded-2xl bg-gradient-to-r from-[#00F2FE] via-[#7367F0] to-[#F067B4] text-white font-bold text-lg sm:text-xl tracking-widest shadow-2xl transition-all duration-300 uppercase hover:brightness-110"
-                >
-                  ДАРОМАДАН
-                </motion.button>
               </div>
 
-              {/* Footer text inside container */}
-              <div className="mt-auto pt-8 sm:pt-12 text-white/30 text-[10px] sm:text-xs text-center">
+              {/* Spacer to push button to bottom */}
+              <div className="flex-1 min-h-[40px]"></div>
+
+              {/* Login Button at the bottom */}
+              <motion.button
+                whileHover={{ scale: 1.02, boxShadow: "0 0 40px rgba(115, 103, 240, 0.6)" }}
+                whileTap={{ scale: 0.98 }}
+                onClick={handleLogin}
+                className="w-full max-w-md mb-8 py-5 rounded-2xl bg-gradient-to-r from-[#00F2FE] via-[#7367F0] to-[#F067B4] text-white font-bold text-xl tracking-widest shadow-2xl transition-all duration-300 uppercase hover:brightness-110 shrink-0"
+              >
+                ДАРОМАДАН
+              </motion.button>
+
+              {/* Footer text */}
+              <div className="pb-8 text-white/50 text-xs text-center shrink-0 font-medium drop-shadow-md">
                 © {new Date().getFullYear()} SDO.TTU.TJ. Ҳамаи ҳуқуқҳо маҳфузанд.
               </div>
             </motion.div>
