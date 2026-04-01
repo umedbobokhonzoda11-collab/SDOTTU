@@ -151,23 +151,23 @@ export default function App() {
             }}
           />
           
-          {/* Semi-transparent Overlay - Fixed to cover everything */}
-          <div className="fixed inset-0 z-10 bg-black/40 backdrop-blur-[4px]" />
+          {/* Semi-transparent Overlay - Full Screen Background */}
+          <div className="absolute inset-0 z-10 bg-black/20 backdrop-blur-[2px]" />
 
-          {/* Content Container - Scrollable if needed */}
-          <div className="relative z-20 w-full min-h-screen flex flex-col items-center p-6 sm:p-12 overflow-y-auto custom-scrollbar">
+          {/* Content Container with Dark Box */}
+          <div className="relative z-20 w-full min-h-screen flex flex-col items-center px-4 pt-6 sm:px-8 sm:pt-10">
             <motion.div 
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
-              className="w-full max-w-xl flex-1 flex flex-col items-center"
+              className="w-full max-w-2xl flex-1 bg-black/60 backdrop-blur-[10px] rounded-t-[40px] sm:rounded-t-[60px] border-x border-t border-white/10 shadow-[0_-30px_120px_rgba(0,0,0,0.5)] flex flex-col items-center overflow-y-auto custom-scrollbar p-6 sm:p-8 md:p-12"
             >
               {/* Logo */}
-              <div className="w-44 h-44 sm:w-60 sm:h-60 md:w-72 md:h-72 relative mt-8 mb-8 flex items-center justify-center shrink-0">
+              <div className="w-56 h-56 sm:w-72 sm:h-72 md:w-80 md:h-80 relative mt-4 mb-8 flex items-center justify-center shrink-0">
                 <img 
                   src={logoUrl} 
                   alt="TTU Logo" 
-                  className="w-full h-full object-contain drop-shadow-[0_0_40px_rgba(255,255,255,0.35)]"
+                  className="w-full h-full object-contain drop-shadow-[0_0_50px_rgba(255,255,255,0.4)]"
                   referrerPolicy="no-referrer"
                   loading="eager"
                 />
@@ -250,6 +250,7 @@ export default function App() {
                 <MenuIcon size={24} />
               </button>
               <div className="flex items-center space-x-2">
+                <img src={logoUrl} alt="Logo" className="w-8 h-8 object-contain" referrerPolicy="no-referrer" />
                 <span className="text-white font-bold text-lg tracking-wider">SDO.TTU.TJ</span>
               </div>
             </div>
