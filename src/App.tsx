@@ -152,15 +152,15 @@ export default function App() {
           />
           
           {/* Dark Overlay Container with Glow */}
-          <div className="absolute inset-0 z-10 flex flex-col items-center justify-end pt-12 px-4 sm:px-8 md:px-12">
+          <div className="absolute inset-0 z-10 flex flex-col items-center justify-end px-4 pt-10 sm:px-8 md:px-12">
             <motion.div 
-              initial={{ opacity: 0, y: 100 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, ease: "easeOut" }}
-              className="relative w-full max-w-2xl h-[90%] bg-gradient-to-b from-transparent via-black/5 to-black/20 backdrop-blur-[4px] rounded-t-[60px] border-x border-t border-white/5 shadow-[0_-30px_120px_rgba(0,0,0,0.1)] flex flex-col items-center overflow-y-auto custom-scrollbar p-8 md:p-12"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.3 }}
+              className="relative w-full max-w-2xl flex-1 bg-gradient-to-b from-black/40 via-black/70 to-black/95 backdrop-blur-[8px] rounded-t-[40px] sm:rounded-t-[60px] border-x border-t border-white/10 shadow-[0_-30px_120px_rgba(0,0,0,0.5)] flex flex-col items-center overflow-y-auto custom-scrollbar p-8 md:p-12"
             >
               {/* Logo */}
-              <div className="w-48 h-48 md:w-56 md:h-56 relative mb-6 flex items-center justify-center shrink-0">
+              <div className="w-32 h-32 sm:w-48 sm:h-48 md:w-56 md:h-56 relative mb-4 sm:mb-8 md:mb-12 flex items-center justify-center shrink-0">
                 <img 
                   src={logoUrl} 
                   alt="TTU Logo" 
@@ -171,56 +171,58 @@ export default function App() {
               </div>
 
               {/* Title */}
-              <div className="space-y-2 text-white text-center mb-10 shrink-0">
-                <h1 className="text-3xl md:text-4xl font-bold leading-tight tracking-wide">Системаи иттилоотии</h1>
-                <h2 className="text-2xl md:text-3xl font-bold leading-tight mt-2">Донишгоҳи техникии Тоҷикистон</h2>
-                <h2 className="text-xl md:text-2xl font-medium">ба номи академик М.С.Осимӣ</h2>
+              <div className="space-y-0.5 sm:space-y-1 text-white text-center mb-6 sm:mb-12 md:mb-24 shrink-0">
+                <h1 className="text-2xl sm:text-4xl md:text-5xl font-bold leading-tight tracking-wide">Системаи иттилоотии</h1>
+                <h2 className="text-xl sm:text-3xl md:text-4xl font-bold leading-tight mt-1 sm:mt-2">Донишгоҳи техникии</h2>
+                <h2 className="text-xl sm:text-3xl md:text-4xl font-bold leading-tight">Тоҷикистон</h2>
+                <h2 className="text-lg sm:text-2xl md:text-3xl font-medium">ба номи академик</h2>
+                <h2 className="text-lg sm:text-2xl md:text-3xl font-medium">М.С.Осимӣ</h2>
               </div>
 
               {/* Login Form */}
-              <div className="w-full max-w-md space-y-8">
-                <div className="flex flex-col items-start space-y-2">
-                  <label className="text-white/70 text-sm font-medium ml-1">Логин</label>
+              <div className="w-full max-w-md space-y-4 sm:space-y-8">
+                <div className="flex flex-col items-start space-y-1 sm:space-y-2">
+                  <label className="text-white/70 text-xs sm:text-sm font-medium ml-1">Логин</label>
                   <input
                     type="text"
                     value={login}
                     onChange={(e) => setLogin(e.target.value)}
-                    className="w-full bg-white/5 text-white px-5 py-4 rounded-xl outline-none border border-white/10 focus:border-[#00F2FE] focus:bg-white/10 transition-all duration-300 text-xl placeholder:text-white/20"
+                    className="w-full bg-white/5 text-white px-4 py-3 sm:px-5 sm:py-4 rounded-xl outline-none border border-white/10 focus:border-[#00F2FE] focus:bg-white/10 transition-all duration-300 text-lg sm:text-xl placeholder:text-white/20"
                     placeholder="Логин"
                   />
                 </div>
 
-                <div className="flex flex-col items-start space-y-2">
-                  <label className="text-white/70 text-sm font-medium ml-1">Парол</label>
+                <div className="flex flex-col items-start space-y-1 sm:space-y-2">
+                  <label className="text-white/70 text-xs sm:text-sm font-medium ml-1">Парол</label>
                   <div className="w-full relative">
                     <input
                       type={showPassword ? "text" : "password"}
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
-                      className="w-full bg-white/5 text-white px-5 py-4 rounded-xl outline-none border border-white/10 focus:border-[#00F2FE] focus:bg-white/10 transition-all duration-300 text-xl pr-14 placeholder:text-white/20"
+                      className="w-full bg-white/5 text-white px-4 py-3 sm:px-5 sm:py-4 rounded-xl outline-none border border-white/10 focus:border-[#00F2FE] focus:bg-white/10 transition-all duration-300 text-lg sm:text-xl pr-12 sm:pr-14 placeholder:text-white/20"
                       placeholder="Парол"
                     />
                     <button 
                       onClick={() => setShowPassword(!showPassword)}
                       className="absolute right-4 top-1/2 -translate-y-1/2 text-white/40 hover:text-white transition-colors"
                     >
-                      {showPassword ? <EyeOff size={22} /> : <Eye size={22} />}
+                      {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                     </button>
                   </div>
                 </div>
 
                 <motion.button
-                  whileHover={{ scale: 1.02, boxShadow: "0 0 30px rgba(0, 242, 254, 0.4)" }}
+                  whileHover={{ scale: 1.02, boxShadow: "0 0 40px rgba(115, 103, 240, 0.6)" }}
                   whileTap={{ scale: 0.98 }}
                   onClick={handleLogin}
-                  className="w-full mt-12 py-5 rounded-2xl bg-gradient-to-r from-[#00F2FE] to-[#7367F0] text-white font-bold text-xl tracking-widest shadow-xl transition-all duration-300 uppercase hover:brightness-110"
+                  className="w-full mt-6 sm:mt-12 py-4 sm:py-5 rounded-2xl bg-gradient-to-r from-[#00F2FE] via-[#7367F0] to-[#F067B4] text-white font-bold text-lg sm:text-xl tracking-widest shadow-2xl transition-all duration-300 uppercase hover:brightness-110"
                 >
                   ДАРОМАДАН
                 </motion.button>
               </div>
 
               {/* Footer text inside container */}
-              <div className="mt-auto pt-12 text-white/30 text-xs text-center">
+              <div className="mt-auto pt-8 sm:pt-12 text-white/30 text-[10px] sm:text-xs text-center">
                 © {new Date().getFullYear()} SDO.TTU.TJ. Ҳамаи ҳуқуқҳо маҳфузанд.
               </div>
             </motion.div>
