@@ -130,7 +130,10 @@ export default function App() {
   return (
     <>
       <div className="min-h-screen bg-black overflow-x-hidden">
-        <div className={`min-h-screen flex flex-col ${isDesktopView ? 'max-w-[1440px] w-full mx-auto shadow-2xl' : 'w-full'}`}>
+        <div 
+          className={`min-h-screen flex flex-col ${isDesktopView ? 'max-w-[1440px] w-full mx-auto shadow-2xl' : 'w-full'}`}
+          style={{ zoom: 0.7 }}
+        >
           <AnimatePresence mode="wait">
           {!isLoggedIn ? (
         <motion.div
