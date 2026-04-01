@@ -160,7 +160,7 @@ export default function App() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
-              className="w-full max-w-2xl flex-1 bg-black/60 backdrop-blur-[10px] rounded-t-[40px] sm:rounded-t-[60px] border-x border-t border-white/10 shadow-[0_-30px_120px_rgba(0,0,0,0.5)] flex flex-col items-center overflow-y-auto custom-scrollbar p-6 sm:p-8 md:p-12"
+              className="w-full max-w-2xl flex-1 bg-black/40 backdrop-blur-[8px] rounded-t-[40px] sm:rounded-t-[60px] border-x border-t border-white/10 shadow-[0_-30px_120px_rgba(0,0,0,0.5)] flex flex-col items-center overflow-y-auto custom-scrollbar p-6 sm:p-8 md:p-12"
             >
               {/* Logo */}
               <div className="w-56 h-56 sm:w-72 sm:h-72 md:w-80 md:h-80 relative mt-4 mb-8 flex items-center justify-center shrink-0">
