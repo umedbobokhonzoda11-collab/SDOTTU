@@ -156,6 +156,15 @@ export default function App() {
 
           {/* Content Container with Dark Box */}
           <div className="relative z-20 w-full min-h-screen flex flex-col items-center px-4 pt-6 sm:px-8 sm:pt-10">
+            {/* Settings Button on Login Page */}
+            <button 
+              onClick={() => setIsSettingsOpen(true)}
+              className="absolute top-6 right-6 sm:top-10 sm:right-10 p-3 rounded-full bg-black/20 hover:bg-black/40 text-white/70 hover:text-white transition-all duration-300 backdrop-blur-md border border-white/10 z-30"
+              title="Танзимот"
+            >
+              <Settings size={24} />
+            </button>
+
             <motion.div 
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -409,15 +418,6 @@ export default function App() {
         </motion.div>
       )}
       </AnimatePresence>
-
-      {/* Floating Settings Button - Always visible */}
-      <button 
-        onClick={() => setIsSettingsOpen(true)}
-        className="fixed bottom-20 right-4 z-50 bg-white/60 backdrop-blur-sm p-1.5 rounded-full shadow-md border border-gray-200 hover:bg-gray-100 transition-all duration-300 group"
-        title="Танзимот"
-      >
-        <Settings size={16} className="text-gray-500 group-hover:rotate-90 transition-transform duration-500" />
-      </button>
 
       {/* Settings Modal */}
       <AnimatePresence>
